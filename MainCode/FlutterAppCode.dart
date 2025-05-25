@@ -36,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
   List<ArticleSummary> _articles = [];
   List<ReadingActivity> _activities = [];
 
-  final String _newsApiKey = "c430f0ec0cae4b409c5d98c0d65f39a5";
+  final String _newsApiKey = "NEWS_API_KEY_HERE";
   final String _ollamaBaseUrl = "http://10.0.2.2:11434";
 
   @override

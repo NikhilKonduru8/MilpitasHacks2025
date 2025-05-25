@@ -251,9 +251,6 @@ final String _ollamaBaseUrl = "http://10.0.2.2:11434"; // Android emulator
 - Social features (with parental controls)
 - Advanced analytics for parents
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🤝 Contributing
 

@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsBuddies - News, Simplified. For Little Minds, Big Futures.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            overflow-x: hidden;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .section-padding {
+            padding: 4rem 1rem;
+        }
+        @media (min-width: 768px) {
+            .section-padding {
+                padding: 6rem 2rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .section-padding {
+                padding: 8rem 4rem;
+            }
+        }
+        
+        .btn-custom-primary {
+            background: linear-gradient(to right, #3b82f6, #9333ea);
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 9999px;
+            padding: 1rem 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+            transform: scale(1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .btn-custom-primary:hover {
+            background: linear-gradient(to right, #2563eb, #7e22ce);
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            color: white;
+        }
+        .btn-custom-secondary {
+            background-color: white;
+            color: #2563eb;
+            font-weight: bold;
+            border: 2px solid #3b82f6;
+            border-radius: 9999px;
+            padding: 1rem 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+            transform: scale(1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .btn-custom-secondary:hover {
+            background-color: #f3f4f6;
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            color: #2563eb;
+        }
+
+        .hero-btn {
+            font-size: 1.25rem;
+            padding: 1.25rem 2.5rem;
+        }
+
+        .btn-footer-primary {
+            background: linear-gradient(to right, #10b981, #06b6d4);
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 9999px;
+            padding: 1rem 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+            transform: scale(1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .btn-footer-primary:hover {
+            background: linear-gradient(to right, #059669, #0891b2);
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            color: white;
+        }
+
+        .btn-footer-secondary {
+            background-color: white;
+            color: #06b6d4;
+            font-weight: bold;
+            border: 2px solid #10b981;
+            border-radius: 9999px;
+            padding: 1rem 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease-in-out;
+            transform: scale(1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .btn-footer-secondary:hover {
+            background-color: #f3f4f6;
+            transform: scale(1.05);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            color: #06b6d4;
+        }
+
+        .card {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+            transform: scale(1);
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .card-enhanced {
+            background: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+            transform: scale(1);
+            border-bottom: 4px solid #60a5fa;
+        }
+        
+        .card-enhanced:hover {
+            transform: scale(1.05);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        @media (min-width: 768px) {
+            .card, .card-enhanced {
+                padding: 2.5rem;
+            }
+        }
+        
+        .icon-box {
+            font-size: 3rem;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+        }
+        .modal-close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .modal-close-button:hover,
+        .modal-close-button:focus {
+            color: black;
+            text-decoration: none;
+        }
+
+        /* 3D Phone Container */
+        #phone-container {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 300px;
+            height: 400px;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        #phone-container canvas {
+            pointer-events: auto;
+        }
+
+        @media (max-width: 1024px) {
+            #phone-container {
+                display: none;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.appear {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .slide-in-left.appear {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .slide-in-right.appear {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .scale-in.appear {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Hero content adjustment for phone */
+        .hero-content {
+            max-width: 60%;
+        }
+
+        @media (max-width: 1024px) {
+            .hero-content {
+                max-width: 100%;
+            }
+        }
+
+        /* Mobile menu improvements */
+        .mobile-menu-enter {
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Improved button focus states */
+        .btn-custom-primary:focus,
+        .btn-custom-secondary:focus,
+        .btn-footer-primary:focus,
+        .btn-footer-secondary:focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-button">&times;</span>
+            <p id="modalMessage" class="text-lg font-semibold mb-4 mt-8"></p>
+            <button onclick="closeModal()" class="btn-custom-primary">Got It!</button>
+        </div>
+    </div>
+
+    <nav class="bg-white shadow-md fixed w-full z-50 py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#hero" class="flex items-center space-x-2">
+                <img src="https://placehold.co/40x40/6366f1/ffffff?text=NB" alt="NewsBuddies Logo" class="rounded-full">
+                <span class="text-2xl font-bold text-blue-600">NewsBuddies</span>
+            </a>
+
+            <div class="hidden md:flex space-x-8">
+                <a href="#hero" class="text-gray-600 hover:text-blue-600 font-medium transition duration-300">Home</a>
+                <a href="#what-is" class="text-gray-600 hover:text-blue-600 font-medium transition duration-300">What It Is</a>
+                <a href="#how-it-works" class="text-gray-600 hover:text-blue-600 font-medium transition duration-300">How It Works</a>
+                <a href="#why-newsbuddies" class="text-gray-600 hover:text-blue-600 font-medium transition duration-300">Why Us</a>
+            </div>
+
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-blue-600 focus:outline-none" aria-label="Toggle mobile menu">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-2 shadow-inner">
+            <a href="#hero" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition duration-300">Home</a>
+            <a href="#what-is" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition duration-300">What It Is</a>
+            <a href="#how-it-works" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition duration-300">How It Works</a>
+            <a href="#why-newsbuddies" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition duration-300">Why Us</a>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero" class="relative bg-gradient-to-br from-blue-100 to-purple-100 text-center py-24 md:py-32 lg:py-48 overflow-hidden">
+            <div class="container mx-auto px-4 relative z-10 fade-in hero-content">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-blue-800 leading-tight mb-6">
+                    News, Simplified. For Little Minds, Big Futures.
+                </h1>
+                <p class="text-lg md:text-xl text-gray-700 mb-10 max-w-3xl mx-auto">
+                    NewsBuddies makes understanding the world's top headlines fun, safe, and personalized for your child's age.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button class="btn-custom-primary hero-btn" onclick="window.location.href='https://github.com/ArnavGarg10/NewsBuddies'">
+                        Start Their News Journey Today!
+                    </button>
+                    <button class="btn-custom-secondary hero-btn" onclick="showMessage('Opening the App Store! Get ready for simplified news. (This is a demo button)')">
+                        <i class="fab fa-apple me-2"></i> Try Our iOS App
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3D Phone Animation Container -->
+            <div id="phone-container"></div>
+
+            <img src="https://placehold.co/200x200/818cf8/ffffff?text=Kids" alt="Kids Illustration" class="absolute top-0 left-0 opacity-20 lg:opacity-50 hidden md:block" style="max-width: 20%;">
+        </section>
+
+        <section id="what-is" class="section-padding bg-white">
+            <div class="container mx-auto px-4 flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 text-center md:text-left slide-in-left">
+                    <h2 class="text-3xl md:text-4xl font-bold text-blue-700 mb-6">Unlocking the World, One Simple Story at a Time.</h2>
+                    <p class="text-lg text-gray-700 leading-relaxed">
+                        In today's fast-paced world, staying informed is essential. But for children, complex news headlines can be overwhelming and even scary. NewsBuddies bridges this gap by taking the day's top U.S. headlines and transforming them into bite-sized, easy-to-understand stories, custom-tailored for your child's age and comprehension level.
+                    </p>
+                </div>
+                <div class="md:w-1/2 flex justify-center slide-in-right">
+                    <img src="https://placehold.co/500x300/a78bfa/ffffff?text=News+Simplification+Graphic" alt="News Simplification Graphic" class="rounded-xl shadow-xl w-full max-w-md">
+                </div>
+            </div>
+        </section>
+
+        <section id="how-it-works" class="section-padding bg-gray-50">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-700 mb-4 fade-in">Intelligent Simplicity, Designed for Kids.</h2>
+                <p class="text-lg text-gray-700 mb-12 max-w-3xl mx-auto fade-in">
+                    Our proprietary technology and educational experts ensure a safe, engaging, and enriching experience.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="card-enhanced scale-in">
+                        <div class="icon-box"><i class="fas fa-globe-americas"></i></div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2">Top U.S. Headlines Daily</h3>
+                        <p class="text-gray-600">We constantly monitor major news sources to identify the most significant headlines relevant to children.</p>
+                    </div>
+                    <div class="card-enhanced scale-in">
+                        <div class="icon-box"><i class="fas fa-brain"></i></div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2">AI-Powered Simplification</h3>
+                        <p class="text-gray-600">Our advanced AI distills complex information into core concepts, making it digestible.</p>
+                    </div>
+                    <div class="card-enhanced scale-in">
+                        <div class="icon-box"><i class="fas fa-child"></i></div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2">Age-Personalized Content</h3>
+                        <p class="text-gray-600">From 5 to 12, each story is adapted for vocabulary, context, and emotional sensitivity.</p>
+                    </div>
+                    <div class="card-enhanced scale-in">
+                        <div class="icon-box"><i class="fas fa-book-reader"></i></div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2">Expert-Reviewed & Child-Friendly</h3>
+                        <p class="text-gray-600">Every piece of content is reviewed by educators and child development specialists.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-newsbuddies" class="section-padding bg-white">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-700 mb-12 fade-in">Give Your Child the Gift of Informed Curiosity.</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div class="card-enhanced scale-in">
+                        <div class="icon-box text-blue-500"><i class="fas fa-lightbulb"></i></div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2">Empowerment</h3>
+                        <p class="text-gray-600">Helps children understand current events in a safe and accessible way, fostering critical thinking from a young age.</p>
+                    </div>
+                    <div class="card-enhanced scale-in">
+                        <div class="icon-box text-green-500"><i class="fas fa-shield-alt"></i></div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2">Safety First</h3>
+                        <p class="text-gray-600">Filters out inappropriate or overly sensitive topics, focusing on positive, educational content.</p>
+                    </div>
+                    <div class="card-enhanced scale-in">
+                        <div class="icon-box text-purple-500"><i class="fas fa-comments"></i></div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2">Engaging Discussions</h3>
+                        <p class="text-gray-600">Transforms news into relatable stories, sparking curiosity and encouraging healthy family discussions.</p>
+                    </div>
+                    <div class="card-enhanced scale-in">
+                        <div class="icon-box text-yellow-500"><i class="fas fa-mobile-alt"></i></div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2">Ultimate Convenience</h3>
+                        <p class="text-gray-600">Delivers daily summaries directly to your preferred device, saving you time and effort.</p>
+                    </div>
+                    <div class="card-enhanced scale-in">
+                        <div class="icon-box text-red-500"><i class="fas fa-graduation-cap"></i></div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2">Future Ready</h3>
+                        <p class="text-gray-600">Prepares them for a future where staying informed is paramount, building a strong foundation for lifelong learning.</p>
+                    </div>
+                    <div class="card-enhanced scale-in">
+                        <div class="icon-box text-indigo-500"><i class="fas fa-user-check"></i></div>
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2">Grows With Them</h3>
+                        <p class="text-gray-600">Content adapts as your child grows, ensuring continuous relevance and learning.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-padding bg-gradient-to-r from-blue-600 to-purple-700 text-white text-center">
+            <div class="container mx-auto px-4 fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Want to stay updated or learn more about NewsBuddies?</h2>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button class="btn-footer-primary" onclick="https://github.com/ArnavGarg10/NewsBuddies">
+                        Sign Up for Updates
+                    </button>
+                    <button class="btn-footer-secondary" onclick="showMessage('Discover more about our mission and vision. (This is a demo button)')">
+                        <i class="fas fa-info-circle me-2"></i> Learn More About Our Mission
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-10">
+        <div class="container mx-auto px-4 text-center md:text-left">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4">NewsBuddies</h3>
+                    <p class="text-sm">Making news accessible and engaging for children, fostering informed curiosity from a young age.</p>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4">Quick Links</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-white transition duration-300">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">FAQs</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4">Legal & Social</h3>
+                    <ul class="space-y-2 text-sm mb-4">
+                        <li><a href="#" class="hover:text-white transition duration-300">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-300">Terms of Service</a></li>
+                    </ul>
+                    <div class="flex justify-center md:justify-start space-x-4 text-2xl">
+                        <a href="#" class="hover:text-white transition duration-300" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="hover:text-white transition duration-300" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="hover:text-white transition duration-300" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm">
+                &copy; 2025 NewsBuddies. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables for 3D scene
+        let scene, camera, renderer, phone, screen;
+        let mouseX = 0, mouseY = 0;
+        let targetRotationX = 0, targetRotationY = 0;
+        let animationId;
+
+        // 3D Phone Animation
+        function init3DPhone() {
+            const container = document.getElementById('phone-container');
+            if (!container || !window.THREE) return;
+            
+            try {
+                // Scene setup
+                scene = new THREE.Scene();
+                camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+                renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+                renderer.setSize(container.clientWidth, container.clientHeight);
+                renderer.setClearColor(0x000000, 0);
+                renderer.shadowMap.enabled = true;
+                renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                container.appendChild(renderer.domElement);
+
+                // Create phone geometry
+                const phoneGroup = new THREE.Group();
+                
+                // Phone body
+                const phoneGeometry = new THREE.BoxGeometry(1.8, 3.2, 0.15);
+                const phoneMaterial = new THREE.MeshPhongMaterial({ 
+                    color: 0x1a1a1a,
+                    shininess: 100,
+                    specular: 0x222222
+                });
+                const phoneBody = new THREE.Mesh(phoneGeometry, phoneMaterial);
+                phoneBody.castShadow = true;
+                phoneGroup.add(phoneBody);
+
+                // Screen
+                const screenGeometry = new THREE.BoxGeometry(1.6, 2.8, 0.02);
+                
+                // Create a canvas for the website content
+                const canvas = document.createElement('canvas');
+                canvas.width = 512;
+                canvas.height = 896;
+                const ctx = canvas.getContext('2d');
+                
+                // Create a gradient background similar to the hero section
+                const gradient = ctx.createLinearGradient(0, 0, 512, 896);
+                gradient.addColorStop(0, '#dbeafe');
+                gradient.addColorStop(1, '#e9d5ff');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, 512, 896);
+                
+                // Add some UI elements to simulate the app
+                ctx.fillStyle = '#1e40af';
+                ctx.font = 'bold 32px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('NewsBuddies', 256, 80);
+                
+                // Add some mock news cards
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(40, 120, 432, 120);
+                ctx.fillRect(40, 260, 432, 120);
+                ctx.fillRect(40, 400, 432, 120);
+                
+                // Add text to cards
+                ctx.fillStyle = '#374151';
+                ctx.font = '16px Arial';
+                ctx.textAlign = 'left';
+                ctx.fillText('Today\'s Top Story for Kids', 60, 150);
+                ctx.fillText('Space News Made Simple', 60, 290);
+                ctx.fillText('Weather Around the World', 60, 430);
+                
+                // Add icons
+                ctx.fillStyle = '#3b82f6';
+                ctx.beginPath();
+                ctx.arc(80, 180, 15, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.arc(80, 320, 15, 0, 2 * Math.PI);
+                ctx.fill();
+                
+                ctx.beginPath();
+                ctx.arc(80, 460, 15, 0, 2 * Math.PI);
+                ctx.fill();
+
+                const screenTexture = new THREE.CanvasTex
+                screenTexture.needsUpdate = true;
+                
+                const screenMaterial = new THREE.MeshPhongMaterial({
+                    map: screenTexture,
+                    shininess: 50,
+                    specular: 0x333333
+                });
+                const screen = new THREE.Mesh(screenGeometry, screenMaterial);
+                screen.position.z = 0.085;
+                phoneGroup.add(screen);
+
+                // Add phone to scene
+                scene.add(phoneGroup);
+
+                // Lighting
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+                scene.add(ambientLight);
+
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+                directionalLight.position.set(5, 5, 5);
+                directionalLight.castShadow = true;
+                scene.add(directionalLight);
+
+                // Camera position
+                camera.position.z = 5;
+
+                // Animation function
+                function animate() {
+                    animationId = requestAnimationFrame(animate);
+
+                    // Smooth rotation
+                    phoneGroup.rotation.y += (targetRotationY - phoneGroup.rotation.y) * 0.05;
+                    phoneGroup.rotation.x += (targetRotationX - phoneGroup.rotation.x) * 0.05;
+
+                    renderer.render(scene, camera);
+                }
+
+                // Mouse/touch interaction
+                function onMouseMove(event) {
+                    mouseX = (event.clientX - window.innerWidth / 2) / 100;
+                    mouseY = (event.clientY - window.innerHeight / 2) / 100;
+
+                    targetRotationY = mouseX * 0.5;
+                    targetRotationX = mouseY * 0.2;
+                }
+
+                window.addEventListener('mousemove', onMouseMove);
+
+                // Handle window resize
+                function onWindowResize() {
+                    camera.aspect = container.clientWidth / container.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                }
+
+                window.addEventListener('resize', onWindowResize);
+
+                // Start animation
+                animate();
+            } catch (error) {
+                console.error('Error initializing 3D phone:', error);
+            }
+        }
+
+        // Modal functionality
+        function showMessage(message) {
+            const modal = document.getElementById('messageModal');
+            const modalMessage = document.getElementById('modalMessage');
+            modalMessage.textContent = message;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('messageModal').style.display = 'none';
+        }
+
+        // Mobile menu functionality
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.add('mobile-menu-enter');
+        });
+
+        // Scroll animations
+        function handleScrollAnimations() {
+            const elements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementBottom = element.getBoundingClientRect().bottom;
+                const isVisible = elementTop < window.innerHeight && elementBottom >= 0;
+                
+                if (isVisible) {
+                    element.classList.add('appear');
+                }
+            });
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            init3DPhone();
+            handleScrollAnimations();
+            window.addEventListener('scroll', handleScrollAnimations);
+        });
+    </script>
+</body>
+</html>

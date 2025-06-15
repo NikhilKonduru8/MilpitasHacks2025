@@ -1,5 +1,7 @@
 # NewsBuddies 📰
 
+Hackathon Project By: Nikhil Konduru and Arnav Garg
+
 **News For Kids** - A Flutter app that transforms complex news articles into child-friendly content using AI.
 
 ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
